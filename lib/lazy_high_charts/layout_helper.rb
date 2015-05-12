@@ -36,7 +36,7 @@ module LazyHighCharts
 
       if defined?(request) && request.respond_to?(:xhr?) && request.xhr?
         graph =<<-EOJS
-        <script type="text/javascript">
+        <script type="text/javascript" data-turbolinks-eval=always>
         (function() {
           #{core_js}
         })()
@@ -44,7 +44,7 @@ module LazyHighCharts
         EOJS
       elsif defined?(Turbolinks) && request.headers["X-XHR-Referer"]
         graph =<<-EOJS
-        <script type="text/javascript">
+        <script type="text/javascript" data-turbolinks-eval=always>
         (function() {
           var f = function(){
             document.removeEventListener('page:load', f, true);
@@ -56,7 +56,7 @@ module LazyHighCharts
         EOJS
       else
         graph =<<-EOJS
-        <script type="text/javascript">
+        <script type="text/javascript" data-turbolinks-eval=always>
         (function() {
           var onload = window.onload;
           window.onload = function(){
